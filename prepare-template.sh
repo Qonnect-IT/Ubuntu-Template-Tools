@@ -6,7 +6,7 @@ if [ `id -u` -ne 0 ]; then
 fi
 
 #Update APT repositories
-apt update && apt upgrade -y
+apt update && NEEDRESTART_SUSPEND=1 apt upgrade -y
 
 #Install OpenVM Tools
 apt install open-vm-tools
@@ -51,8 +51,15 @@ test -f /etc/ssh/ssh_host_dsa_key || dpkg-reconfigure openssh-server
 exit 0
 EOL
 
-# make sure the script is executable
+#Make sure the script is executable
 chmod +x /etc/rc.local
+
+#Generate MOTD
+cat << 'EOL' | tee /etc/motd
+###################################### WARNING!!! ############################################################################
+This template is created and maintained by the prepare-template.sh script. Please run prepare-template.sh to perform updates!!
+##############################################################################################################################
+EOL
 
 #reset hostname
 # prevent cloudconfig from preserving the original hostname
