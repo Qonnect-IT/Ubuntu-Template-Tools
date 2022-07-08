@@ -56,13 +56,12 @@ chmod +x /etc/rc.local
 
 #Generate MOTD
 cat << 'EOL' | tee /etc/motd
-###################################### WARNING!!! ############################################################################
-This template is created and maintained by the prepare-template.sh script. Please run prepare-template.sh to perform updates!!
-##############################################################################################################################
-EOL
+###################################### WARNING!!! ###############################################
+          This template is created and maintained by the prepare-template.sh script.
+                 Please run ./prepare-template.sh to perform updates!!
+#################################################################################################
 
-#reset hostname
-# prevent cloudconfig from preserving the original hostname
+#Prevent cloudconfig from preserving the original hostname
 sed -i 's/preserve_hostname: false/preserve_hostname: true/g' /etc/cloud/cloud.cfg
 truncate -s0 /etc/hostname
 hostnamectl set-hostname localhost
@@ -70,7 +69,7 @@ hostnamectl set-hostname localhost
 #Cleanup DHCP Leases with dhclient
 dhclient -r
 
-#cleanup dhcp leases
+#Cleanup dhcp leases
 rm -rf /var/lib/dhcp/dhclient.leases
 
 #cleanup apt
@@ -82,6 +81,11 @@ sed -i 's/optional: true/dhcp-identifier: mac/g' /etc/netplan/50-cloud-init.yaml
 
 # cleans out all of the cloud-init cache / logs - this is mainly cleaning out networking info
 cloud-init clean --logs
+
+#Download a copy of this script to the local server in order to make updating this template easy
+wget https://raw.githubusercontent.com/Qonnect-IT/Ubuntu-Template-Tools/master/prepare-template.sh
+
+chmod +x prepare-template.sh
 
 #cleanup shell history
 cat /dev/null > ~/.bash_history && history -c
