@@ -9,7 +9,7 @@ fi
 apt update && NEEDRESTART_SUSPEND=1 apt upgrade -y
 
 #Install OpenVM Tools
-apt install open-vm-tools
+apt install net-tools open-vm-tools
 
 #Stop RSyslog
 service rsyslog stop
