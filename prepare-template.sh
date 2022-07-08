@@ -56,10 +56,12 @@ chmod +x /etc/rc.local
 
 #Generate MOTD
 cat << 'EOL' | tee /etc/motd
-###################################### WARNING!!! ###############################################
-          This template is created and maintained by the prepare-template.sh script.
+\033[1;31m###################################### \033[0mWARNING!!!\033[1;31m ###############################################
+\033[0m          This template is created and maintained by the prepare-template.sh script.
                  Please run ./prepare-template.sh to perform updates!!
-#################################################################################################
+\033[1;31m#################################################################################################
+\033[0m
+EOL
 
 #Prevent cloudconfig from preserving the original hostname
 sed -i 's/preserve_hostname: false/preserve_hostname: true/g' /etc/cloud/cloud.cfg
