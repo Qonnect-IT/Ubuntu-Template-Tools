@@ -100,7 +100,7 @@ mkdir -p /etc/systemd/system/systemd-networkd-wait-online.service.d
 cat > /etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf <<'EOF'
 [Service]
 ExecStart=
-ExecStart=/lib/systemd/systemd-networkd-wait-online --timeout=10
+ExecStart=/lib/systemd/systemd-networkd-wait-online --timeout=5 --any
 EOF
 systemctl daemon-reload
 
