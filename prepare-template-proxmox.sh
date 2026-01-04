@@ -53,8 +53,8 @@ systemctl enable regenerate-ssh-host-keys.service
 echo "[8/10] MOTD"
 cat > /etc/motd <<'EOF'
 ###################################### WARNING!!! ###############################################
-          This template is created and maintained by the prepare-template.sh script.
-                 Please run ./prepare-template.sh to perform updates!!
+          This template is created and maintained by the prepare-template-proxmox.sh script.
+                 Please run ./prepare-template-proxmox.sh to perform updates!!
 #################################################################################################
 EOF
 
