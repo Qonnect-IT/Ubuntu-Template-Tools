@@ -67,6 +67,16 @@ sed -i 's/preserve_hostname: false/preserve_hostname: true/g' /etc/cloud/cloud.c
 truncate -s0 /etc/hostname
 hostnamectl set-hostname localhost
 
+
+# Shorten wait-online so template boots don't hang forever when network is slow/missing
+mkdir -p /etc/systemd/system/systemd-networkd-wait-online.service.d
+cat > /etc/systemd/system/systemd-networkd-wait-online.service.d/override.conf <<'EOF'
+[Service]
+ExecStart=
+ExecStart=/lib/systemd/systemd-networkd-wait-online --timeout=5 --any
+EOF
+systemctl daemon-reload
+
 #Cleanup DHCP Leases with dhclient
 dhclient -r
 
