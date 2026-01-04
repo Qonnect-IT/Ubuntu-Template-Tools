@@ -119,11 +119,9 @@ ln -sf /etc/machine-id /var/lib/dbus/machine-id || true
 
 apt clean
 
-# Optional: pulling scripts at build-time is not reproducible, but keep if you want
-# wget -q https://raw.githubusercontent.com/Qonnect-IT/Ubuntu-Template-Tools/master/prepare-template.sh -O /root/prepare-template.sh || true
-# chmod +x /root/prepare-template.sh || true
+wget -q https://raw.githubusercontent.com/Qonnect-IT/Ubuntu-Template-Tools/master/prepare-template-proxmox.sh -O /root/prepare-template.sh || true
+chmod +x /root/prepare-template.sh || true
 
-# Clear history (optional)
 cat /dev/null > /root/.bash_history || true
 history -c || true
 
