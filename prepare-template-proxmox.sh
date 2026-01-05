@@ -14,7 +14,14 @@ echo "[2/10] Install packages (Proxmox)"
 # open-vm-tools is for VMware; Proxmox benefits from qemu-guest-agent
 apt install -y net-tools qemu-guest-agent
 
-systemctl enable --now qemu-guest-agent || true
+# Start it (works even if enable isn't supported in some images)
+systemctl start qemu-guest-agent || true
+
+# Enable it if possible; ignore the "no installation config" warning
+systemctl enable qemu-guest-agent 2>/dev/null || true
+
+# Confirm status (optional)
+systemctl status qemu-guest-agent --no-pager || true
 
 echo "[3/10] Stop rsyslog (optional - keep if you want)"
 service rsyslog stop || true
